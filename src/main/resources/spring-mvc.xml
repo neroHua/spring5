@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- controller -->
+	<bean id="userInsertController" class="controller.UserInsertController">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="cardInsertController" class="controller.CardInsertController">
+		<property name="cardService" ref="cardService"></property>
+	</bean>
+	
+	<!-- request handler -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="UrlMap">
+			<map>
+				<entry key="/user/insert" value="userInsertController" />
+				<entry key="/card/insert" value="cardInsertController" />
+			</map>
+		</property>
+	</bean>
+    
+    <!-- static resource -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
+    
+    <!-- view -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <!-- http json message convert -->
+    <!-- 
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+ -->
+</beans>
