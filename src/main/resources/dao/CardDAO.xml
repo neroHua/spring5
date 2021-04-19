@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.CardDAO">
+
+	<resultMap type="bean.Card" id="card">
+		<id column="id" property="id"></id>
+		<result column="name" property="name"></result>
+		<result column="user_id" property="userId"></result>
+	</resultMap>
+
+	<insert id="insertCard">
+		INSERT INTO
+			tb_card
+			(name, user_id)
+		values
+			(#{card.name}, #{card.userId})
+	</insert>
+	
+	<delete id="deleteUserById">
+		DELECT FORM
+			tb_card
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<update id="updateCardById">
+		UPDATE
+			tb_user
+		SET
+			<if test="card.name != null">
+	    		name = #{card.name},
+	  		</if>
+	  		<if test="card.userId != null">
+	    		user_id = #{card.userId},
+	  		</if>
+	  	WHERE
+	  		id = #{card.id}
+	</update>
+
+	<select id="selectCardById" resultMap="card">
+		SELECT
+			*
+		FROM
+			tb_card
+		WHERE
+			id = #{id}
+	</select>
+	
+</mapper>
