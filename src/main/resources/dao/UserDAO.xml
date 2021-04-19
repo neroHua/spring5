@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UserDAO">
+
+	<resultMap type="bean.User" id="user">
+		<id column="id" property="id"></id>
+		<result column="name" property="name"></result>
+		<result column="age" property="age"></result>
+	</resultMap>
+
+	<insert id="insertUser">
+		INSERT INTO
+			tb_user
+			(name, age)
+		values
+			(#{user.name}, #{user.age})
+	</insert>
+	
+	<delete id="deleteUserById">
+		DELECT FORM
+			tb_user
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<update id="updateUserById">
+		UPDATE
+			tb_user
+		SET
+			<if test="user.name != null">
+	    		name = #{user.name},
+	  		</if>
+	  		<if test="user.age != null">
+	    		age = #{user.age},
+	  		</if>
+	  	WHERE
+	  		id = #{user.id}
+	</update>
+
+	<select id="selectUserById" resultMap="user">
+		SELECT
+			*
+		FROM
+			tb_user
+		WHERE
+			id = #{id}
+	</select>
+	
+</mapper>
