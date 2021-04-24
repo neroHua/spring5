@@ -1,14 +1,0 @@
-漱壕   4 :
- 
- . /	 	 0	 	 1	 	 2 3 4 5 6 name Ljava/lang/String; money J nameList Ljava/util/List; 	Signature $Ljava/util/List<Ljava/lang/String;>; <init> ()V Code LineNumberTable LocalVariableTable this  Lasm/chapter03/case04/TestClass; getName ()Ljava/lang/String; setName (Ljava/lang/String;)V getMoney ()J setMoney (J)V getNameList ()Ljava/util/List; &()Ljava/util/List<Ljava/lang/String;>; setNameList (Ljava/util/List;)V LocalVariableTypeTable '(Ljava/util/List<Ljava/lang/String;>;)V containName (Ljava/lang/String;)Z 
-StackMapTable 
-SourceFile TestClass.java   java/lang/Long 
-      7 8 9 asm/chapter03/case04/TestClass java/lang/Object java/util/List contains (Ljava/lang/Object;)Z ! 	 
-          
-                     :     *?* ??      
-                          /     *??                              >     *+??      
-                                /     *??                          !     >     *??      
-                      
-    " #     /     *??                           $  % &     P     *+??      
-       !                   '               (  ) *     V     *???
-*?+? ?          $                   +    I  ,    -
