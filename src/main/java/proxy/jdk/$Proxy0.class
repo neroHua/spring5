@@ -1,0 +1,36 @@
+漱壕   1 m <init> ((Ljava/lang/reflect/InvocationHandler;)V Code 
+Exceptions java/lang/reflect/Proxy   
+   m1 Ljava/lang/reflect/Method; equals (Ljava/lang/Object;)Z h %Ljava/lang/reflect/InvocationHandler; 
+ 	   $Proxy0  	 
+	   java/lang/Object  #java/lang/reflect/InvocationHandler  invoke S(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;     java/lang/Boolean  booleanValue ()Z   
+  ! java/lang/Error # java/lang/RuntimeException % java/lang/Throwable ' .java/lang/reflect/UndeclaredThrowableException ) (Ljava/lang/Throwable;)V  +
+ * , m2 toString ()Ljava/lang/String; . 
+	  1 java/lang/String 3 m4 showMyPrice ()V 5 
+	  8 m3 
+showMyName : 
+	  < m0 hashCode ()I > 
+	  A java/lang/Integer C intValue E @
+ D F <clinit> java.lang.Object I java/lang/Class K forName %(Ljava/lang/String;)Ljava/lang/Class; M N
+ L O  	getMethod @(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method; R S
+ L T / proxy.jdk.DynamicGoods W 6 ; ? java/lang/NoSuchMethodException \ java/lang/NoSuchMethodError ^ 
+getMessage ` 0
+ ( a (Ljava/lang/String;)V  c
+ _ d  java/lang/ClassNotFoundException f java/lang/NoClassDefFoundError h
+ i d proxy/jdk/DynamicGoods k 1    l  
+ 	 
+   
+ . 
+   
+ 5 
+   
+ : 
+   
+ > 
+            
+    *+??                 K 
+    '*?*??Y+S? ??"M?*Y,?-?     $     &     (          / 0     A 
+    *?*?2? ?4翱L?*Y+?-?     $     &     (          6 7     ? 
+    *?*?9? W笨L?*Y+?-?     $     &     (          ; 7     ? 
+    *?*?=? W笨L?*Y+?-?     $     &     (          ? @     D 
+     *?*?B? ?D?GL?*Y+?-?     $     &     (          H 7     ?
+    xJ?PQ?LYJ?PS?U?J?PV?L?U?2X?PY?L?U?9X?PZ?L?U?=J?P[?L?U?B盠?_Y+?b?e縇?iY+?b?j?   ^ ^ ]   ^ k g          
