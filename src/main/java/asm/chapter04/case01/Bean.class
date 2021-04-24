@@ -1,18 +1,0 @@
-漱壕   4 -
- 	 "	  # $
-  "
- % & '
-  ( ) * f I <init> ()V Code LineNumberTable LocalVariableTable this Lasm/chapter04/case01/Bean; getF ()I setF (I)V checkAndSetF 
-StackMapTable sleep (J)V e  Ljava/lang/InterruptedException; d J ' 
-SourceFile 	Bean.java  
- 
-  "java/lang/IllegalArgumentException +   java/lang/InterruptedException , 
- asm/chapter04/case01/Bean java/lang/Object java/lang/Thread printStackTrace !  	     
-       
-     /     *??                              /     *??                              >     *??      
-      
-                
-          _     ?*???Y?勘                                 
-        	       f     
-??M,??                                   
-         G        !
