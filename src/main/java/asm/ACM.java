@@ -14,9 +14,9 @@ package asm;
  * 1. 把java源文件编译成带有调试信息的class文件
  * javac -g xxxx.java
  *
- * 2. transfer class file from binary code to well formed and easy read assembly code
- * 2. 把class文件从2进制代码转换成易于阅读且带有格式的汇编diam
- * javac -v xxxx.class
+ * 2. transfer class file from binary code to well formed and easy read bite code
+ * 2. 把class文件从2进制代码转换成易于阅读且带有格式的字节码
+ * javap -v xxxx.class
  *
  */
 public class ACM {
