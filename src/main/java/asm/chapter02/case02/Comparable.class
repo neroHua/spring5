@@ -1,5 +1,0 @@
-漱壕   4     LESS I 
-ConstantValue EQUAL     GREATER    	compareTo (Ljava/lang/Object;)I 
-SourceFile Comparable.java asm/chapter02/case02/Comparable java/lang/Object asm/chapter02/case02/Measurable                       	  
-          
-        
