@@ -1,0 +1,12 @@
+漱壕   4 &
+  	  
+         d
+     timer J <init> ()V Code LineNumberTable LocalVariableTable this Lasm/chapter04/case04/CChange; m 
+Exceptions  
+SourceFile CChange.java   	 
+   ! " # $ % asm/chapter04/case04/CChange java/lang/Object java/lang/Exception java/lang/System currentTimeMillis ()J java/lang/Thread sleep (J)V !      	 	 
+        
+   /     *??                           
+   Q     ??e? ???a??           
+ 	  
+                          
