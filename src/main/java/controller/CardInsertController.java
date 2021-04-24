@@ -10,7 +10,7 @@ import bean.Card;
 import service.CardService;
 
 public class CardInsertController implements Controller {
-	
+
 	private CardService cardService;
 
 	public CardService getCardService() {
