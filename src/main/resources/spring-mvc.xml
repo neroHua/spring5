@@ -1,57 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- controller -->
-	<bean id="userInsertController" class="controller.UserInsertController">
-		<property name="userService" ref="userService"></property>
+	<!-- jdbc properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- dataSource -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
 	</bean>
-	<bean id="cardInsertController" class="controller.CardInsertController">
-		<property name="cardService" ref="cardService"></property>
+
+    <!-- mybatis mapper -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-spring.xml"></property>
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:dao/*.xml"></property>
+    </bean>
+    <!-- mybatis dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+	<!-- transaction -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- transaction aop -->
+    <aop:config>
+        <aop:pointcut id="txPoint" expression="execution(* service..*(..))"></aop:pointcut>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint" />
+    </aop:config>
+    <!-- transaction advice -->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="*"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="remove*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+	<!-- service -->
+	<bean id="userService" class="service.impl.UserServiceImpl">
+		<property name="userDAO" ref="userDAO"></property>
+		<property name="cardDAO" ref="cardDAO"></property>
+	</bean>
+	<bean id="cardService" class="service.impl.CardServiceImpl">
+		<property name="cardDAO" ref="cardDAO"></property>
 	</bean>
 	
-	<!-- request handler -->
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="UrlMap">
-			<map>
-				<entry key="/user/insert" value="userInsertController" />
-				<entry key="/card/insert" value="cardInsertController" />
-			</map>
-		</property>
+	<!-- circular dependency -->
+	<bean id="a" class="circularDependency.A">
+		<property name="b" ref="b"></property>
 	</bean>
-    
-    <!-- static resource -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:resources mapping="/images/**" location="/images/" />
-    <mvc:resources mapping="/js/**" location="/js/" />
-    
-    <!-- view -->
-    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="suffix" value=".jsp" />
-    </bean>
-    
-    <!-- http json message convert -->
-    <!-- 
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="false">
-            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/html;charset=UTF-8</value>
-                        <value>application/json;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
- -->
+	<bean id="b" class="circularDependency.B">
+		<property name="a" ref="a"></property>
+	</bean>
+	
 </beans>
