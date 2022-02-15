@@ -68,4 +68,11 @@
 	<bean id="cardService" class="service.impl.CardServiceImpl">
 		<property name="cardDAO" ref="cardDAO"></property>
 	</bean>
+
+    <!-- java aop: com.nero.hua -->
+    <aop:aspectj-autoproxy/>
+    <bean id="logAop" class="aop.LogAOP"/>
+    <bean id="people" class="com.nero.hua.impl.PeopleImpl">
+    </bean>
+
 </beans>
